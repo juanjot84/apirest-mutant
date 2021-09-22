@@ -16,6 +16,6 @@ public class StastsDTO extends Base{
 
     private int countMutantDna;
     private int countHumanDna;
-    private long ratio;
+    private float ratio;
 
 }
