@@ -26,7 +26,7 @@ public class MutantServiceImpl  extends BaseServiceImpl<Mutant, Long> implements
             StastsDTO stastsDTO = new StastsDTO();
             stastsDTO.setCountMutantDna( contTotMutant );
             stastsDTO.setCountHumanDna(  contTotHum );
-            stastsDTO.setRatio( mutantRepository.contTotalMutantes() / stastsDTO.getCountHumanDna() );
+            stastsDTO.setRatio( ratio );
 
             return stastsDTO;
 
