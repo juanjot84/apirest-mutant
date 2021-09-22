@@ -18,15 +18,13 @@ public class MutantServiceImpl  extends BaseServiceImpl<Mutant, Long> implements
     }
 
     public StastsDTO getStast() throws Exception{
-
         try {
             StastsDTO stastsDTO = new StastsDTO();
-            stastsDTO.setCountHumanDna(  mutantRepository.contTotalDna() - mutantRepository.contTotalMutantes() );
-            stastsDTO.setCountMutantDna( mutantRepository.contTotalMutantes() );
-            float contTotMutant = new Float( mutantRepository.contTotalMutantes() );
-            float contTotHum = new Float(mutantRepository.contTotalDna() - mutantRepository.contTotalMutantes() );
+            stastsDTO.setCount_human_dna(  mutantRepository.contTotalDna() - mutantRepository.contTotalMutantes() );
+            stastsDTO.setCount_mutant_dna( mutantRepository.contTotalMutantes() );
+            float contTotMutant = (float) mutantRepository.contTotalMutantes();
+            float contTotHum = (float) (mutantRepository.contTotalDna() - mutantRepository.contTotalMutantes());
             float ratio =  contTotMutant / contTotHum;
-
             stastsDTO.setRatio( ratio );
 
             return stastsDTO;
@@ -38,28 +36,24 @@ public class MutantServiceImpl  extends BaseServiceImpl<Mutant, Long> implements
 
     public Mutant isMutant(String[] dna) throws Exception {
         try {
-
             int contSecuencia = 0;
             String result = "humano";
             int size1 = dna.length - 1;
             int size2 = dna.length;
 
             for (int i = 0; i < dna.length; i++) {
-                contSecuencia += busquedaHorizontal(dna[i]);
+                contSecuencia += busquedaHorizontal(dna[i], contSecuencia);
                 if (contSecuencia > 1) break;
-                contSecuencia += busquedaVertical(dna, i);
+                contSecuencia += busquedaVertical(dna, i, contSecuencia);
                 if (contSecuencia > 1) break;
-                contSecuencia += busquedaOblicua(dna, i, size1, size2);
+                contSecuencia += busquedaOblicua(dna, i, size1, size2, contSecuencia);
                 if (contSecuencia > 1) break;
                 size1--;
                 size2++;
             }
             if (contSecuencia < 2 ) contSecuencia = busquedaOblicuaInv(dna, contSecuencia);
-
             if (contSecuencia > 1) result = "mutante";
-
             Mutant mutant = new Mutant(dna, result);
-
             return mutant;
 
         } catch (Exception e) {
@@ -67,72 +61,66 @@ public class MutantServiceImpl  extends BaseServiceImpl<Mutant, Long> implements
         }
     }
 
-    private int busquedaHorizontal(String fila) {
-        int contSecHorz = 0;
+    private int busquedaHorizontal(String fila, int contSecuencia) {
         for (int j = 3; j < fila.length(); j++) {
             if ( fila.charAt(j) == fila.charAt(j-3) ) {
                 if ( fila.charAt(j-2) == fila.charAt(j-1) && fila.charAt(j-1) == fila.charAt(j) ) {
-                    contSecHorz++;
+                    contSecuencia++;
                     j += 3;
                 }
             }
         }
-        return contSecHorz;
+        return contSecuencia;
     }
 
-    private int busquedaVertical(String[] dna, int i) {
-        int contSecVert = 0;
+    private int busquedaVertical(String[] dna, int i, int contSecuencia) {
         for (int k = 3; k < dna.length; k++) {
             if ( dna[k].charAt(i) == dna[k-3].charAt(i) ) {
                 if ( dna[k-2].charAt(i) == dna[k-1].charAt(i) && dna[k-1].charAt(i) == dna[k].charAt(i) ) {
-                    contSecVert++;
+                    contSecuencia++;
                     k += 3;
                 }
             }
         }
-        return contSecVert;
+        return contSecuencia;
     }
 
-    private int busquedaOblicua(String[] dna, int i, int size1, int size2) {
-        int contSecObl = 0;
-
-        String temp = "";
+    private int busquedaOblicua(String[] dna, int i, int size1, int size2, int contSecuencia) {
+        String filaTemp = "";
         for ( int j = 0, x = dna.length-1-i; j < dna.length-i; j++, x--){
-            if((j+x) == size1) temp += dna[x].charAt(j);
+            if((j+x) == size1) filaTemp += dna[x].charAt(j);
         }
-        if ( temp.length() > 3) contSecObl += busquedaHorizontal(temp);
+        if ( filaTemp.length() > 3) contSecuencia = busquedaHorizontal(filaTemp, contSecuencia);
 
-        temp = "";
+        filaTemp = "";
         for ( int j = i+1, x = dna.length-1; j < dna.length; j++, x--) {
-            if ((j+x)== size2) temp += dna[x].charAt(j);
+            if ((j+x)== size2) filaTemp += dna[x].charAt(j);
         }
-        if ( temp.length() > 3) contSecObl += busquedaHorizontal(temp);
+        if ( filaTemp.length() > 3) contSecuencia = busquedaHorizontal(filaTemp, contSecuencia);
 
-        return contSecObl;
+        return contSecuencia;
     }
 
     private int busquedaOblicuaInv(String[] dna, int contSecuencia) {
-        int contSecOblInv = contSecuencia;
-
         for ( int i = dna.length - 1; i > 0; i--) {
-            String temp = "";
+            String filaTemp = "";
             for (int j = 0, x = i; x <= dna.length - 1; j++, x++) {
-                temp += dna[x].charAt(j);
+                filaTemp += dna[x].charAt(j);
             }
-            if ( temp.length() > 3) contSecOblInv += busquedaHorizontal(temp);
-            if (contSecOblInv > 1) break;
+            if ( filaTemp.length() > 3) contSecuencia = busquedaHorizontal(filaTemp, contSecuencia);
+            if (contSecuencia > 1) break;
         }
 
         for ( int i = 0; i <= dna.length - 1; i++) {
-            if (contSecOblInv > 1) break;
-            String temp = "";
+            if (contSecuencia > 1) break;
+            String filaTemp = "";
             for (int j = 0, y = i; y <= dna.length - 1; j++, y++ ) {
-                temp += dna[j].charAt(y);
+                filaTemp += dna[j].charAt(y);
             }
-            if ( temp.length() > 3) contSecOblInv += busquedaHorizontal(temp);
+            if ( filaTemp.length() > 3) contSecuencia = busquedaHorizontal(filaTemp, contSecuencia);
         }
 
-        return contSecOblInv;
+        return contSecuencia;
     }
 
 }

@@ -12,8 +12,8 @@ import javax.persistence.Entity;
 @Setter
 public class StastsDTO {
 
-    private int countMutantDna;
-    private int countHumanDna;
+    private int count_mutant_dna;
+    private int count_human_dna;
     private float ratio;
 
 }
