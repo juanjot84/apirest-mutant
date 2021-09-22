@@ -12,7 +12,7 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 @Getter
 @Setter
-public class StastsDTO extends Base{
+public class StastsDTO {
 
     private int countMutantDna;
     private int countHumanDna;
