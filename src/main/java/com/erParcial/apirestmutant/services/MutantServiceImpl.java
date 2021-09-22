@@ -5,7 +5,9 @@ import com.erParcial.apirestmutant.entities.StastsDTO;
 import com.erParcial.apirestmutant.repositories.BaseRepository;
 import com.erParcial.apirestmutant.repositories.MutantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class MutantServiceImpl  extends BaseServiceImpl<Mutant, Long> implements MutantService {
 
     @Autowired
@@ -15,7 +17,6 @@ public class MutantServiceImpl  extends BaseServiceImpl<Mutant, Long> implements
         super(baseRepository);
     }
 
-    @Override
     public StastsDTO getStast() throws Exception{
 
         try {
@@ -31,8 +32,7 @@ public class MutantServiceImpl  extends BaseServiceImpl<Mutant, Long> implements
             throw new Exception(e.getMessage());
         }
     }
-
-    @Override
+    
     public Mutant isMutant(String[] dna) throws Exception {
         try {
 
