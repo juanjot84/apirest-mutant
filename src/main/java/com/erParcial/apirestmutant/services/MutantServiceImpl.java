@@ -32,7 +32,7 @@ public class MutantServiceImpl  extends BaseServiceImpl<Mutant, Long> implements
             throw new Exception(e.getMessage());
         }
     }
-    
+
     public Mutant isMutant(String[] dna) throws Exception {
         try {
 

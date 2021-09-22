@@ -17,7 +17,7 @@ public class MutantController extends BaseControllerImp<Mutant, MutantServiceImp
     public ResponseEntity<?> getStasts() {
         try {
             StastsDTO stastsDTO = servicio.getStast();
-            return ResponseEntity.status(HttpStatus.OK).body(stastsDTO);
+            return ResponseEntity.status(HttpStatus.OK).body("{\"count_mutant_dna\":\""+stastsDTO.getCountMutantDna()+"\",count_human_dna\":\""+stastsDTO.getCountHumanDna()+"\",ratio\":\""+stastsDTO.getRatio()+"}");
             //"{\"count_mutant_dna\":\""+stastsDTO.getCountMutantDna()+"\",count_human_dna\":\""+stastsDTO.getCountHumanDna()+"\",ratio\":\""+stastsDTO.getRatio()+"}"
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente mas tarde.\"}");
