@@ -20,10 +20,12 @@ public class MutantServiceImpl  extends BaseServiceImpl<Mutant, Long> implements
     public StastsDTO getStast() throws Exception{
 
         try {
-
+            int contTotMutant = mutantRepository.contTotalMutantes();
+            int contTotHum = mutantRepository.contTotalDna() - contTotMutant;
+            Long ratio =  new Long(contTotMutant / contTotHum);
             StastsDTO stastsDTO = new StastsDTO();
-            stastsDTO.setCountMutantDna( mutantRepository.contTotalMutantes() );
-            stastsDTO.setCountHumanDna( mutantRepository.contTotalDna() - mutantRepository.contTotalMutantes() );
+            stastsDTO.setCountMutantDna( contTotMutant );
+            stastsDTO.setCountHumanDna(  contTotHum );
             stastsDTO.setRatio( mutantRepository.contTotalMutantes() / stastsDTO.getCountHumanDna() );
 
             return stastsDTO;
