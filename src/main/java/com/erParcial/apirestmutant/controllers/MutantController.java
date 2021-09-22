@@ -1,6 +1,7 @@
 package com.erParcial.apirestmutant.controllers;
 
 import com.erParcial.apirestmutant.entities.Mutant;
+import com.erParcial.apirestmutant.entities.StastsDTO;
 import com.erParcial.apirestmutant.services.MutantService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +18,10 @@ public class MutantController {
     }
 
     @GetMapping("/stats")
-    public ResponseEntity<?> getAll() {
+    public ResponseEntity<?> getStasts() {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(mutantService.findAll());
+            StastsDTO stastsDTO = mutantService.getStast();
+            return ResponseEntity.status(HttpStatus.OK).body("{\"count_mutant_dna\":\""+stastsDTO.getCountMutantDna()+"\",count_human_dna\":\""+stastsDTO.getCountHumanDna()+"\",ratio\":\""+stastsDTO.getRatio()+"}");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente mas tarde.\"}");
         }
