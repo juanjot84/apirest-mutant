@@ -66,7 +66,8 @@ public class MutantServiceImpl  extends BaseServiceImpl<Mutant, Long> implements
             if ( fila.charAt(j) == fila.charAt(j-3) ) {
                 if ( fila.charAt(j-2) == fila.charAt(j-1) && fila.charAt(j-1) == fila.charAt(j) ) {
                     contSecuencia++;
-                    j += 3;
+                    break;
+                 //   j += 3;
                 }
             }
         }
@@ -78,7 +79,8 @@ public class MutantServiceImpl  extends BaseServiceImpl<Mutant, Long> implements
             if ( dna[k].charAt(i) == dna[k-3].charAt(i) ) {
                 if ( dna[k-2].charAt(i) == dna[k-1].charAt(i) && dna[k-1].charAt(i) == dna[k].charAt(i) ) {
                     contSecuencia++;
-                    k += 3;
+                    break;
+                  //  k += 3;
                 }
             }
         }
