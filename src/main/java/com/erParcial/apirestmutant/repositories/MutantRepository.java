@@ -19,5 +19,5 @@ public interface MutantRepository extends BaseRepository<Mutant, Long> {
             nativeQuery = true
     )
     int contTotalMutantes();
-
 }
+

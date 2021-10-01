@@ -28,7 +28,6 @@ public class MutantServiceImpl  extends BaseServiceImpl<Mutant, Long> implements
             stastsDTO.setRatio( ratio );
 
             return stastsDTO;
-
         } catch(Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -67,7 +66,6 @@ public class MutantServiceImpl  extends BaseServiceImpl<Mutant, Long> implements
                 if ( fila.charAt(j-2) == fila.charAt(j-1) && fila.charAt(j-1) == fila.charAt(j) ) {
                     contSecuencia++;
                     break;
-                 //   j += 3;
                 }
             }
         }
@@ -80,7 +78,6 @@ public class MutantServiceImpl  extends BaseServiceImpl<Mutant, Long> implements
                 if ( dna[k-2].charAt(i) == dna[k-1].charAt(i) && dna[k-1].charAt(i) == dna[k].charAt(i) ) {
                     contSecuencia++;
                     break;
-                  //  k += 3;
                 }
             }
         }
@@ -121,8 +118,7 @@ public class MutantServiceImpl  extends BaseServiceImpl<Mutant, Long> implements
             }
             if ( filaTemp.length() > 3) contSecuencia = busquedaHorizontal(filaTemp, contSecuencia);
         }
-
         return contSecuencia;
     }
-
 }
+

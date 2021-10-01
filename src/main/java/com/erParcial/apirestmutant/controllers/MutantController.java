@@ -37,5 +37,5 @@ public class MutantController extends BaseControllerImp<Mutant, MutantServiceImp
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
-
 }
+
