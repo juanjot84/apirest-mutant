@@ -27,11 +27,14 @@ public class MutantController extends BaseControllerImp<Mutant, MutantServiceImp
     public ResponseEntity<?> verificarDna(@RequestBody Mutant entity) {
         try {
             entity = servicio.isMutant(entity.getDna());
-            entity = servicio.save(entity);
             if ( entity.getClasificacion() == "mutante" ) {
+                entity = servicio.save(entity);
                 return ResponseEntity.status(HttpStatus.OK).body("{\"Es Mutante.\"}");
-            } else {
+            } else if ( entity.getClasificacion() == "humano" ) {
+                entity = servicio.save(entity);
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"Es Humano.\"}");
+            } else {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"dna incorrecto.\"}");
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

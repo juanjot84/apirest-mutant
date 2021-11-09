@@ -1,5 +1,7 @@
 package com.erParcial.apirestmutant.entities;
 
+import java.util.regex.*;
+
 public class SearchMutant {
 
     public SearchMutant() {
@@ -7,33 +9,35 @@ public class SearchMutant {
     }
 
     public Mutant buscarMutante(String[] dna) throws Exception {
+        String result = "humano";
+        if (verificarDNA(dna)) {
+            SearchMutant searchMutant = new SearchMutant();
+            try {
+                int contSecuencia = 0;
+                int size1 = dna.length - 1;
+                int size2 = dna.length;
 
-        SearchMutant searchMutant = new SearchMutant();
-
-        try {
-            int contSecuencia = 0;
-            String result = "humano";
-            int size1 = dna.length - 1;
-            int size2 = dna.length;
-
-            for (int i = 0; i < dna.length; i++) {
-                contSecuencia = busquedaHorizontal(dna[i], contSecuencia);
-                if (contSecuencia > 1) break;
-                contSecuencia = busquedaVertical(dna, i, contSecuencia);
-                if (contSecuencia > 1) break;
-                contSecuencia = busquedaOblicua(dna, i, size1, size2, contSecuencia);
-                if (contSecuencia > 1) break;
-                size1--;
-                size2++;
+                for (int i = 0; i < dna.length; i++) {
+                    contSecuencia = busquedaHorizontal(dna[i], contSecuencia);
+                    if (contSecuencia > 1) break;
+                    contSecuencia = busquedaVertical(dna, i, contSecuencia);
+                    if (contSecuencia > 1) break;
+                    contSecuencia = busquedaOblicua(dna, i, size1, size2, contSecuencia);
+                    if (contSecuencia > 1) break;
+                    size1--;
+                    size2++;
+                }
+                if (contSecuencia < 2 ) contSecuencia = busquedaOblicuaInv(dna, contSecuencia);
+                if (contSecuencia > 1) result = "mutante";
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
             }
-            if (contSecuencia < 2 ) contSecuencia = busquedaOblicuaInv(dna, contSecuencia);
-            if (contSecuencia > 1) result = "mutante";
-            Mutant mutant = new Mutant(dna, result);
-            return mutant;
-
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
+        } else {
+               result = "dna incorrecto";
         }
+
+        Mutant mutant = new Mutant(dna, result);
+        return mutant;
     }
 
     public int busquedaHorizontal(String fila, int contSecuencia) {
@@ -94,6 +98,16 @@ public class SearchMutant {
             if ( filaTemp.length() > 3) contSecuencia = busquedaHorizontal(filaTemp, contSecuencia);
         }
         return contSecuencia;
+    }
+
+    public boolean verificarDNA(String[] dna) {
+        boolean result = true;
+        for (String s: dna) {
+            if (!s.matches("^[ATCG]+$")) {
+                result = false;
+            }
+        }
+        return result;
     }
 
 }
