@@ -72,6 +72,7 @@ ADN: {“count_mutant_dna”:40, “count_human_dna”:100: “ratio”:0.4}
 
 - Java 11
 - Spring Boot
+- JUnit
 - MySQL
 - JPA
 - Heroku
