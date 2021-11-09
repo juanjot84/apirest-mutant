@@ -92,4 +92,14 @@ public class SearchMutantTest {
         System.out.println("Resultado Buscar Mutante: "+calificacion);
     }
 
+    @Test
+    @Order(6)
+    public void verificarDNATest() {
+        boolean result;
+        boolean resultadoEsperado = true;
+        result = searchMutant.verificarDNA(dna);
+
+        Assertions.assertEquals(resultadoEsperado,result);
+        System.out.println("Resultado verificar dna: "+result);
+    }
 }
