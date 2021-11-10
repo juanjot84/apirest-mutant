@@ -68,6 +68,13 @@ Servicio que devuelve un Json con las estadísticas de las verificaciones de ADN
 ADN: {“count_mutant_dna”:40, “count_human_dna”:100: “ratio”:0.4}
 ```
 
+### Code Coverage
+Se testearon las clases con logica elemental para el funcionamiento de la aplicación
+
+<div align=”center”>
+  <img src="https://res.cloudinary.com/hci2koa2w/image/upload/v1636581452/data/coverage_u8hd3r.jpg"/>
+</div>
+
 ### Tecnología
 
 - Java 11
