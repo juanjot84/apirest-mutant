@@ -42,26 +42,32 @@ public class SearchMutant {
 
     public int busquedaHorizontal(String fila, int contSecuencia) {
         for (int j = 3; j < fila.length(); j++) {
-            if ( fila.charAt(j) == fila.charAt(j-3) ) {
-                if ( fila.charAt(j-2) == fila.charAt(j-1) && fila.charAt(j-1) == fila.charAt(j) ) {
-                    contSecuencia++;
-                    break;
-                }
-            }
+        	if ( compararDna(fila.charAt(j), fila.charAt(j-3), fila.charAt(j-2), fila.charAt(j-1)) ) {
+        		contSecuencia++;
+                break;
+        	}
         }
         return contSecuencia;
     }
 
     public int busquedaVertical(String[] dna, int i, int contSecuencia) {
         for (int k = 3; k < dna.length; k++) {
-            if ( dna[k].charAt(i) == dna[k-3].charAt(i) ) {
-                if ( dna[k-2].charAt(i) == dna[k-1].charAt(i) && dna[k-1].charAt(i) == dna[k].charAt(i) ) {
-                    contSecuencia++;
-                    break;
-                }
-            }
+        	if ( compararDna(dna[k].charAt(i), dna[k-3].charAt(i), dna[k-2].charAt(i), dna[k-1].charAt(i)) ) {
+        		contSecuencia++;
+                break;
+        	}
         }
         return contSecuencia;
+    }
+    
+    public boolean compararDna(char a, char b, char c, char d) {
+    	boolean result = false;
+    	if (a == b) {
+    		if ( c == d && c == a) {
+    			result = true;
+    		}
+    	}
+    	return result;
     }
 
     public int busquedaOblicua(String[] dna, int i, int size1, int size2, int contSecuencia) {
