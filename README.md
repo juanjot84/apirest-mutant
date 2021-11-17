@@ -30,6 +30,12 @@ El algoritmo fue planteado con la premisa de no tener que recorrer la matriz ele
 Para evitar procesamiento innecesario, se controla en todo momento que de cumplirse la condición mínima de encontrar más de una secuencia de cuatro letras iguales,
 la aplicación finaliza su ejecución y devuelve el resultado correspondiente.
 
+Ejemplo de búsqueda horizontal
+
+<div align=”center”>
+  <img src="https://res.cloudinary.com/hci2koa2w/image/upload/v1637191459/data/alg_oakgwo.jpg" width="500" height="200"/>
+</div>
+
 Respuesta de mutante encontrado:
 ```
 {"Es mutante"}
